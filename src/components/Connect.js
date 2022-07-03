@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
-
+import { formatWalletAddress } from '../utils/walletFormat'
 function Connect({ wallet, setWallet }) {
-  function formatWalletAddress(address) {
-    return address.substring(0, 5) + '...' + address.substring(address.length - 3, address.length)
-  }
-
   async function tryConnectWallet() {
     let provider
     try {
@@ -63,8 +59,12 @@ function Connect({ wallet, setWallet }) {
   })
 
   useEffect(() => {
+    async function setFormattedAddress(wallet) {
+      const strAddress = await formatWalletAddress(wallet.address, wallet.provider)
+      setMessage(strAddress)
+    }
     if (wallet.error) setMessage(wallet.error)
-    else if (wallet.address) setMessage(formatWalletAddress(wallet.address))
+    else if (wallet.address) setFormattedAddress(wallet)
     else setMessage('connect wallet')
   }, [wallet])
 

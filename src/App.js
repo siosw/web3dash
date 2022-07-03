@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Connect from './components/Connect'
 import Block from './components/Block'
+import Dai from './components/Dai'
 
 function App() {
   const [ selectedPage, setSelectedPage ] = useState(0)
@@ -14,7 +15,7 @@ function App() {
 
   const pages = [
     (<Block wallet={wallet} />),
-    (<div className='w-full h-64 bg-green-100'></div>),
+    (<Dai wallet={wallet} />),
     (<div className='w-full h-64 bg-yellow-100'></div>),
   ]
   
